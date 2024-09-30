@@ -1,5 +1,21 @@
 {
+  "name": "devprofilefyi",
+  "version": "1.0.0",
+  "description": "Backend of debprofilefyi",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "start-with-nodemon": "nodemon src/app.js"
+  },
+  "keywords": [
+    "Backend",
+    "NodeJs",
+    "expressJS"
+  ],
+  "author": "Manas Srivastava",
+  "license": "ISC",
   "dependencies": {
-    "mongodb": "^6.9.0"
+    "devprofilefyi": "file:",
+    "express": "^4.21.0"
   }
 }
