@@ -5,6 +5,9 @@ const userConnectionModel = require("../models/user-connection");
 const user = require("../models/user");
 const { isValidRequestStatus } = require("../utils/validation");
 
+/**
+ * Send a connection request to the user.
+ */
 requestRouter.post(
   "/request/send/:status/:userId",
   userAuth,
@@ -48,6 +51,9 @@ requestRouter.post(
   }
 );
 
+/**
+ * Accept or reject the connection request.
+ */
 requestRouter.post(
   "/request/review/:status/:requestId",
   userAuth,
