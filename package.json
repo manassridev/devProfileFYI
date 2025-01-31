@@ -4,8 +4,7 @@
   "description": "Backend of debprofilefyi",
   "main": "index.js",
   "scripts": {
-    "start": "node src/app.js",
-    "start-with-nodemon": "nodemon src/app.js"
+    "start": "nodemon src/app.js"
   },
   "keywords": [
     "Backend",

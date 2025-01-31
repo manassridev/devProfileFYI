@@ -11,4 +11,31 @@ validateRequestBody = (req) => {
   }
 };
 
-module.exports = validateRequestBody;
+isUpdateAllowed = (req) => {
+  const allowedFieldsUpdates = [
+    "phoneNumber",
+    "address",
+    "bio",
+    "keySkills",
+    "age",
+  ];
+  const fields = Object.keys(req.body);
+  return fields.every((field) => allowedFieldsUpdates.includes(field));
+};
+
+/**
+ * Function to check if connection request status is valid or not.
+ */
+isValidRequestStatus = (status, requestType) => {
+  const allowedSendStatuses = ["ignored", "interested"];
+  const allowedReviewStatuses = ["accepted", "rejected"];
+  return requestType === "send"
+    ? allowedSendStatuses.includes(status)
+    : allowedReviewStatuses.includes(status);
+};
+
+module.exports = {
+  validateRequestBody,
+  isUpdateAllowed,
+  isValidRequestStatus,
+};

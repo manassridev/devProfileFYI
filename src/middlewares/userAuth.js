@@ -11,7 +11,7 @@ userAuth = async (req, res, next) => {
     if (!userInfo) {
       throw new Error("User not found");
     } else {
-      res.send(userInfo);
+      req.user = userInfo;
       next();
     }
   } catch (err) {
