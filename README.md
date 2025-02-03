@@ -1,4 +1,4 @@
-                                                      **devProfileFYI Backend**
+                                                      devProfileFYI Backend
 
 **devProfileFYI** is a professional networking and matchmaking platform designed exclusively for software professionals,operating on the same principles as Tinder. 
 It allows developers, engineers, and tech enthusiasts to create detailed profiles showcasing their skills, experience, and interests. 
