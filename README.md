@@ -8,12 +8,12 @@ Built with Node.js, devProfileFYI ensures a fast and scalable backend, handling 
 Ensuring meaningful matches between professionals for job opportunities, mentorship, or project collaborations.
 
 Key Features:
-Swipe-based matching system for tech professionals.
-Secure authentication and profile verification.
-Login and Logout feature.
+Swipe-based matching system for tech professionals,
+Secure authentication and profile verification,
+Login and Logout feature,
 Designed to make tech networking seamless, devProfileFYI connects the right people in the industry efficiently. 🚀
 
 Upcoming features:
-Email service support
-Real Time Live Chat Service
+Email service support,
+Real Time Live Chat Service,
 Payment gateway integration
