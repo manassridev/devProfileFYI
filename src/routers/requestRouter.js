@@ -15,7 +15,7 @@ requestRouter.post(
     try {
       const requestStatus = req?.params?.status;
       const requestToUserID = req?.params?.userId;
-      const fromUser = req?.user;
+      const loggedInUser = req?.user;
       const requestToUserData = await user.findById(requestToUserID);
       if (!requestToUserData) {
         throw new Error(
@@ -27,23 +27,23 @@ requestRouter.post(
       }
       const isConnectionAlreadyExist = await userConnectionModel.findOne({
         $or: [
-          { fromUserId: fromUser?._id, toUserId: requestToUserID },
-          { fromUserId: requestToUserID, toUserId: fromUser?._id },
+          { fromUserId: loggedInUser?._id, toUserId: requestToUserID },
+          { fromUserId: requestToUserID, toUserId: loggedInUser?._id },
         ],
       });
       if (isConnectionAlreadyExist) {
         throw new Error("Already interacted");
       }
       const connection = await new userConnectionModel({
-        fromUserId: fromUser?._id,
-        toUserId: requestToUserData?._id,
+        fromUserId: loggedInUser?._id,
+        toUserId: requestToUserID,
         requestStatus: requestStatus,
       });
       const data = connection.save();
       res
         .status(200)
         .send(
-          `${fromUser?.firstName} Send a Conenction Request to ${requestToUserData?.firstName}`
+          `${loggedInUser?.firstName} Send a Connection Request to ${requestToUserData?.firstName}`
         );
     } catch (err) {
       res.status(400).send(`Error: ${err}`);

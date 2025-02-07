@@ -18,6 +18,7 @@ isUpdateAllowed = (req) => {
     "bio",
     "keySkills",
     "age",
+    "photoUrl",
   ];
   const fields = Object.keys(req.body);
   return fields.every((field) => allowedFieldsUpdates.includes(field));

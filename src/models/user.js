@@ -39,6 +39,9 @@ const userSchema = new mongoose.Schema(
     address: {
       type: String,
     },
+    photoUrl: {
+      type: String,
+    },
     bio: {
       type: String,
       default: "This a default bio",

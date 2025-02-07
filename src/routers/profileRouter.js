@@ -24,9 +24,9 @@ profileRouter.get("/users", async (req, res) => {
 /**
  * GET /profile endpoint to get the authenticated loggen-in user profile details.
  */
-profileRouter.get("/profile", userAuth, async (req, res) => {
+profileRouter.get("/profile/view", userAuth, async (req, res) => {
   try {
-    res.status(200).send(await userModel.find({}));
+    res.status(200).send(await userModel.findById(req.user._id));
   } catch (err) {
     throw new Error("Profile not found:" + err.message);
   }

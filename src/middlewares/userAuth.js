@@ -9,13 +9,13 @@ userAuth = async (req, res, next) => {
     const decodedUserObject = await jwt.verify(token, SECRET_KEY);
     const userInfo = await User.findById(decodedUserObject.id);
     if (!userInfo) {
-      throw new Error("User not found");
+      return res.send("User not found");
     } else {
       req.user = userInfo;
       next();
     }
   } catch (err) {
-    res.status(400).send("ERR :" + err);
+    res.status(401).send("ERR :" + err);
   }
 };
 
