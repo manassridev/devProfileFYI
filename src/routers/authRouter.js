@@ -55,6 +55,10 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
+/**
+ * POST /logout endpoint.
+ * It's to logout the current user by expiring the 'token'.
+ */
 authRouter.post("/logout", async (req, res) => {
   res.cookie("token", null, { expires: new Date(0) });
   res.status(200).send("Logged out successful");
