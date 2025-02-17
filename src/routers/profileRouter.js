@@ -48,20 +48,22 @@ profileRouter.delete("/profile", async (req, res) => {
 /**
  * Update the user based on userId.
  */
-profileRouter.patch("/profile/edit/:userId", userAuth, async (req, res) => {
+profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const loggedInUser = req.user;
     if (!isUpdateAllowed(req)) {
       throw new Error(
         "You're trying to update invalid field (password or email)."
       );
     } else {
-      await userModel.findByIdAndUpdate(
-        { _id: userId },
-        { ...req.body },
-        { runValidators: true }
+      Object.keys(req.body).forEach(
+        (user) => (loggedInUser[user] = req.body[user])
       );
-      res.status(200).send("User data updated successfully!!");
+      loggedInUser.save();
+      res.json({
+        message: `${loggedInUser?.firstName} updated successfully!!`,
+        data: loggedInUser,
+      });
     }
   } catch (err) {
     res.status(400).send({ message: "Update failed", error: err?.message });

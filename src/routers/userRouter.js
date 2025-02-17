@@ -65,8 +65,9 @@ userRouter.get("/feed", userAuth, async (req, res) => {
       $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
     });
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const skip = (page - 1) * limit > 50 ? 50 : limit;
+    let limit = parseInt(req.query.limit) || 10;
+    limit = limit > 50 ? 50 : limit;
+    const skip = (page - 1) * limit;
     const hiddenUsersFromFeed = new Set();
     connectionRequests.forEach((connection) => {
       hiddenUsersFromFeed.add(connection.fromUserId);
