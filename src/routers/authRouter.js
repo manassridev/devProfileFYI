@@ -21,8 +21,12 @@ authRouter.post("/signup", async (req, res) => {
       email,
       password: encryptedPassword,
     });
+    //create a token using secret key and expires it in 1hr
+    const token = await userObj.getJWT();
+    //Set a cookie and expires it after 1 hour
+    res.cookie("token", token, { expires: new Date(Date.now() + 3600000) });
     await userObj.save();
-    res.send("User added successfully");
+    res.json({ message: "User added successfully", data: userObj });
   } catch (err) {
     res.status(400).send({ message: "Error", error: err.message });
   }

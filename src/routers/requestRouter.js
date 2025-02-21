@@ -4,6 +4,7 @@ const requestRouter = express.Router();
 const userConnectionModel = require("../models/user-connection");
 const user = require("../models/user");
 const { isValidRequestStatus } = require("../utils/validation");
+const PROFILE_INFO = require("../constants/constants");
 
 /**
  * Send a connection request to the user.
@@ -65,17 +66,18 @@ requestRouter.post(
       if (!isValidRequestStatus(status, "review")) {
         throw new Error("You can either Accept or reject the request !!");
       }
-      const user = await userConnectionModel.findOne({
-        _id: requestId,
-        toUserId: loggedInUser?._id,
-        requestStatus: "interested",
-      });
+      const user = await userConnectionModel
+        .findOne({
+          toUserId: loggedInUser?._id,
+          requestStatus: "interested",
+        })
+        .populate("fromUserId", PROFILE_INFO);
       if (!user) {
         throw new Error("Request not found");
       }
       user.requestStatus = status;
       const userData = await user.save();
-      res.status(200).send(`You accepted the invitation, ${userData}`);
+      res.status(200).send(userData);
     } catch (err) {
       res.status(400).send(`Error: ${err}`);
     }

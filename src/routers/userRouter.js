@@ -3,8 +3,7 @@ const { userAuth } = require("../middlewares/userAuth");
 const userRouter = express.Router();
 const userConnectionModel = require("../models/user-connection");
 const user = require("../models/user");
-
-const PROFILE_INFO = "firstName lastName bio keySkills age";
+const PROFILE_INFO = require("../constants/constants");
 
 /**
  * GET all the connections of a current user.
@@ -42,13 +41,15 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
 /**
  * GET all the connection requests of the user.
  */
-userRouter.get("/user/received", userAuth, async (req, res) => {
+userRouter.get("/user/requests/received", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
-    const receivedConnection = await userConnectionModel.find({
-      toUserId: loggedInUser._id,
-      requestStatus: "interested",
-    });
+    const receivedConnection = await userConnectionModel
+      .find({
+        toUserId: loggedInUser._id,
+        requestStatus: "interested",
+      })
+      .populate("fromUserId", PROFILE_INFO);
     res.json({ receivedConnection });
   } catch (err) {
     res.status(400).send("Unable to find the requests");

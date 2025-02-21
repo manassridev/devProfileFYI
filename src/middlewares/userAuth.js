@@ -7,6 +7,7 @@ userAuth = async (req, res, next) => {
     const cookies = req.cookies;
     const { token } = cookies;
     const decodedUserObject = await jwt.verify(token, SECRET_KEY);
+    console.log(decodedUserObject);
     const userInfo = await User.findById(decodedUserObject.id);
     if (!userInfo) {
       return res.send("User not found");
