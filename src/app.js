@@ -8,6 +8,7 @@ const profileRouter = require("./routers/profileRouter");
 const requestRouter = require("./routers/requestRouter");
 const userRouter = require("./routers/userRouter");
 const cors = require("cors");
+require("dotenv").config();
 
 app.use(
   cors({
